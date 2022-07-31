@@ -1,0 +1,35 @@
+services:
+  A-strapi:
+    build:
+      context: strapi
+    image: strapi
+    volumes:
+      - ./strapi:/srv/app
+    ports:
+      - '1337:1337'
+    networks:
+      - strapi
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:12.0-alpine
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - strapi-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - strapi
+
+volumes:
+    strapi-data:
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge 
