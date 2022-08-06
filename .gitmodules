@@ -1,0 +1,3 @@
+[submodule "devfolio"]
+	path = devfolio
+	url = https://github.com/thatnerdjosh/devfolio.git

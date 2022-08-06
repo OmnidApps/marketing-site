@@ -1,4 +1,10 @@
 services:
+  J-gatsby:
+    build:
+      context: devfolio
+    image: gatsby
+    volumes:
+      - ./devfolio:/home/node/devfolio
   A-strapi:
     build:
       context: strapi
@@ -11,6 +17,8 @@ services:
       - strapi
     depends_on:
       - postgres
+  # M-build:
+  #   ...
   postgres:
     image: postgres:12.0-alpine
     platform: linux/amd64 #for platform error on Apple M1 chips
